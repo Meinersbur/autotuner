@@ -172,9 +172,9 @@ def the_command_line():
     ppcg_group = parser.add_argument_group("PPCG arguments")
     
     ppcg_group.add_argument("--target",
-                            choices=[enums.Targets.cuda, enums.Targets.opencl],
+                            choices=[enums.Targets.cuda, enums.Targets.opencl, enums.Targets.prl],
                             help="the target to generate code for",
-                            default=enums.Targets.opencl)
+                            default=enums.Targets.prl)
     
     ppcg_group.add_argument("--blacklist",
                             type=string_csv,

@@ -155,7 +155,7 @@ class Individual:
         os.environ["AUTOTUNER_PPCG_FLAGS"] = self.ppcg_cmd_line_flags
 
         if config.Arguments.cmd_string_complete:
-            cmd = config.Arguments.ppcg_cmd+ ' '+self.ppcg_cmd_line_flags
+            cmd = config.Arguments.ppcg_cmd + ' '+self.ppcg_cmd_line_flags
         elif config.Arguments.target == enums.Targets.cuda:
             cmd = config.Arguments.ppcg_cmd + ' '+self.ppcg_cmd_line_flags+' -o '+self.file_name()
         else:
@@ -192,7 +192,7 @@ class Individual:
         elif config.Arguments.target == enums.Targets.cuda:
             build_cmd = config.Arguments.build_cmd + ' ' + self.file_name()+ '_host.cu ' + self.file_name()+ '_kernel.cu '+ '-o '+ self.file_name()+'.exe'
         else:
-            build_cmd = config.Arguments.build_cmd + ' ' + self.file_name()+ '_host.c ' + '-o '+ self.file_name()+'.exe' + ' -lprl -lOpenCL'
+            build_cmd = config.Arguments.build_cmd + ' ' + self.file_name()+ '_host.c ' + '-o '+ self.file_name()+'.exe' + '  -lprl_opencl -lOpenCL -lm'
         debug.verbose_message("Running '%s'" % build_cmd, __name__)
         start  = timeit.default_timer()
         proc   = subprocess.Popen(build_cmd, shell=True)  
@@ -243,6 +243,7 @@ class Individual:
                     if matches:
                         nmatchedlines += 1
                         try:
+                            print(matches[0])
                             total_time += float(matches[0])
                         except:
                             raise internal_exceptions.BinaryRunException("Execution time '%s' is not in the required format" % matches[0])
